@@ -1,6 +1,8 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 
+import fetch from "node-fetch";
+
 const INPUTS = {
   apiBaseUrl: 'api-base-url',
   registry: 'registry',
