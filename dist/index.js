@@ -1338,15 +1338,16 @@ const OUTPUTS = {
 };
 
 async function getDockerCredentials(apiBaseUrl, apiKey) {
-  const response=await fetch(`${apiBaseUrl}/docker/otp`, {
+  const response = await fetch(`${apiBaseUrl}/docker/otp`, {
     method: "POST",
     headers: {
       authorization: `bearer ${apiKey}`
     }
   });
-  if(!response.ok)
-    throw new Error(`Failed to generate docker credentials with status ${response.status}: ${response.text()}`);
-  return response.json();
+  if (!response.ok) {
+    throw new Error(`Failed to generate docker credentials with status ${response.status}`);
+  }
+  return await response.json();
 }
 
 async function doDockerLogin(registry, username, password) {
@@ -1380,12 +1381,13 @@ async function run() {
   const apiKey = core.getInput(INPUTS.apiKey, { required: true });
 
   try {
-    const { username, password }=getDockerCredentials(apiBaseUrl, apiKey);
+    const { username, password } = await getDockerCredentials(apiBaseUrl, apiKey);
 
-    core.info(`Username: ${username}`);
-    core.info(`Password: ${password}`);
+    core.info("Generated one-time pad...");
 
-    doDockerLogin(registry, username, password);
+    await doDockerLogin(registry, username, password);
+
+    core.info("Login complete!");
 
     core.setOutput(OUTPUTS.registry, registry);
     core.setOutput(OUTPUTS.dockerUsername, username);
