@@ -23,6 +23,7 @@ async function getDockerCredentials(apiBaseUrl, apiKey) {
   });
   if(!response.ok)
     throw new Error(`Failed to generate docker credentials with status ${response.status}: ${response.text()}`);
+  core.info(`Docker OTP response ${response.text()}`);
   return response.json();
 }
 
