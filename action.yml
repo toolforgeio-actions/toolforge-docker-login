@@ -26,5 +26,5 @@ outputs:
       The URI of the Docker registry that was logged into.
 runs:
   using: "node16"
-  main: "dist/index.js"
-  post: "dist/cleanup/index.js"
+  main: "dist/main/index.js"
+  post: "dist/post/index.js"

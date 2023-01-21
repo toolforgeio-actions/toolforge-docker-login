@@ -63,13 +63,13 @@ async function run() {
 
   let registryState = null;
   try {
-    const { username, password } = await getDockerCredentials(apiBaseUrl, apiKey);
+    core.info(`Logging in to ${registry}...`)
 
-    core.info("Generated one-time pad...");
+    const { username, password } = await getDockerCredentials(apiBaseUrl, apiKey);
 
     await doDockerLogin(registry, username, password);
 
-    core.info("Login complete!");
+    core.info("Done!");
 
     core.setOutput(OUTPUTS.registry, registry);
     core.setOutput(OUTPUTS.dockerUsername, username);
