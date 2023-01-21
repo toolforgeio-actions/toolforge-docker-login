@@ -1344,6 +1344,8 @@ async function getDockerCredentials(apiBaseUrl, apiKey) {
       authorization: `bearer ${apiKey}`
     }
   });
+  if(!response.ok)
+    throw new Error(`Failed to generate docker credentials with status ${response.status}: ${response.text()}`);
   return response.json();
 }
 
@@ -1379,6 +1381,9 @@ async function run() {
 
   try {
     const { username, password }=getDockerCredentials(apiBaseUrl, apiKey);
+
+    core.info(`Username: ${username}`);
+    core.info(`Password: ${password}`);
 
     doDockerLogin(registry, username, password);
 
