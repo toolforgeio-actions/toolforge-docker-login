@@ -1,0 +1,29 @@
+name: 'ToolForge Docker "Login" Action for GitHub Actions'
+description: "Logs in the local Docker client to a ToolForge Docker registry"
+branding:
+  icon: log-in
+  color: gray-dark
+inputs:
+  registry:
+    description: >-
+      The hostname of a ToolForge docker registry to login to.
+      If you do not specify a registry, then the default registry "docker.toolforge.io" is assumed.
+    required: false
+    default: docker.toolforge.io
+  apiBaseUrl:
+    description: >-
+      The base URL to use for the ToolForge API.
+      If you do not specify a base URL, then the default base URL "https://api.toolforge.io/v1" is assumed.
+    required: false
+    default: https://api.toolforge.io/v1
+  api-key:
+    description: >-
+      The ToolForge API key to use to generate Docker credentials. ToolForge API keys start with "tfk_".
+    required: true
+outputs:
+  registry:
+    description: >-
+      The URI of the Docker registry that was logged into.
+runs:
+  using: "node16"
+  main: "dist/index.js"

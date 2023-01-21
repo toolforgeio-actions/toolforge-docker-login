@@ -1,0 +1,34 @@
+{
+    "name": "toolforgeio-actions-toolforge-docker-login",
+    "version": "0.0.0",
+    "description": "Logs in the local Docker client to a ToolForge Docker registry",
+    "main": "index.js",
+    "scripts": {
+      "lint": "eslint **.js",
+      "package": "ncc build index.js -o dist"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/toolforgeio-actions/toolforge-docker-login.git"
+    },
+    "keywords": [
+      "ToolForge",
+      "GitHub",
+      "Actions",
+      "JavaScript"
+    ],
+    "author": "ToolForge",
+    "license": "Apache-2.0",
+    "bugs": {
+      "url": "https://github.com/toolforgeio-actions/toolforge-docker-login/issues"
+    },
+    "homepage": "https://github.com/toolforgeio-actions/toolforge-docker-login#readme",
+    "dependencies": {
+      "@actions/core": "^1.10.0",
+      "@actions/exec": "^1.1.1"
+    },
+    "devDependencies": {
+      "@vercel/ncc": "^0.22.3",
+      "eslint": "^8.32.0"
+    }
+  }
