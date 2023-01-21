@@ -14,6 +14,10 @@ const OUTPUTS = {
   dockerPassword: 'docker-password'
 };
 
+const STATES = {
+  registry: 'registry'
+};
+
 async function getDockerCredentials(apiBaseUrl, apiKey) {
   const response = await fetch(`${apiBaseUrl}/docker/otp`, {
     method: "POST",
@@ -57,6 +61,7 @@ async function run() {
   const registry = core.getInput(INPUTS.registry, { required: false }) || DEFAULT_DOCKER_REGISTRY;
   const apiKey = core.getInput(INPUTS.apiKey, { required: true });
 
+  let registryState = null;
   try {
     const { username, password } = await getDockerCredentials(apiBaseUrl, apiKey);
 
@@ -70,9 +75,15 @@ async function run() {
     core.setOutput(OUTPUTS.dockerUsername, username);
     core.setOutput(OUTPUTS.dockerPassword, password);
     core.setSecret(password);
+
+    registryState = registry;
   }
   catch (error) {
     core.setFailed(error.message);
+  }
+
+  if (registryState) {
+    core.saveState(STATES.registry, registryState);
   }
 }
 
